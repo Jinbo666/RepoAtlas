@@ -170,6 +170,39 @@ your-project/
 
 ---
 
+## Usage Tips: What's Automatic vs. What You Say
+
+Most of the framework runs silently. Here's what you actually need to do (and what you don't):
+
+### Session start — you say nothing
+
+Tools like Cursor, Claude Code, Codex, and Windsurf **automatically read `AGENTS.md`** when a session begins. The agent then follows the routing chain (`current-focus.md` → `active.md` → `system-overview.md`) on its own. You just start working.
+
+If the context window is nearly full or the agent seems "lost", a quick reset helps:
+
+> Re-read AGENTS.md and reload the current state.
+
+### During work — reading is automatic, writing needs a nudge
+
+The agent is good at **reading** memory (loading context, checking lessons). But it rarely **writes** back unprompted — updating log, lessons, or focus feels like "extra work" to the model.
+
+**You don't need to prompt after every change.** Only at meaningful checkpoints:
+
+| When | What to say |
+|------|-------------|
+| Fixed a bug with a reusable lesson | *"Record this in recent-lessons and log."* |
+| Made a technical decision | *"Create a decision note for this."* |
+| End of a productive session | *"Update project memory: log, current-focus, any new lessons."* |
+| Periodic health check | *"Run a lint pass on the memory layer."* |
+
+Tiny changes (typo fixes, formatting) need nothing.
+
+### The rule of thumb
+
+**Reading is implicit. Writing needs a one-liner from you.** As models improve, even this will become automatic — the protocol is already defined and waiting.
+
+---
+
 ## Compatibility
 
 Works with any AI coding agent that reads markdown files:
