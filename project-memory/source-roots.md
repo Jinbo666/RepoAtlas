@@ -77,9 +77,9 @@ Write policy:
 
 ## Dynamic Memory Roots
 
-- `.project-memory/`
-- `.project-memory/tasks/`
-- `.project-memory/sessions/`
+- `project-memory/`
+- `project-memory/tasks/`
+- `project-memory/sessions/`
 
 Role:
 - dynamic working memory

@@ -8,7 +8,7 @@ The goal is to control drift across:
 
 - code and tests
 - curated docs under `docs/`
-- dynamic memory under `.project-memory/`
+- dynamic memory under `project-memory/`
 
 Lint is not about style only.
 It is about **truth maintenance**.
@@ -108,7 +108,7 @@ A lint pass should produce:
 
 ### 1. A log entry
 Append one entry to:
-- `.project-memory/log.md`
+- `project-memory/log.md`
 
 Type:
 - `lint`
@@ -131,8 +131,8 @@ Safe fixes may include:
 
 ### 4. Follow-up notes when not safe
 If a fix requires interpretation or code inspection beyond confidence, record follow-up work in:
-- `.project-memory/current-focus.md`
-- `.project-memory/tasks/active.md`
+- `project-memory/current-focus.md`
+- `project-memory/tasks/active.md`
 
 ---
 
@@ -140,9 +140,9 @@ If a fix requires interpretation or code inspection beyond confidence, record fo
 
 ### Step 1: Read state
 Read:
-- `.project-memory/current-focus.md`
-- `.project-memory/tasks/active.md`
-- `.project-memory/recent-lessons.md`
+- `project-memory/current-focus.md`
+- `project-memory/tasks/active.md`
+- `project-memory/recent-lessons.md`
 - recent `log.md` entries
 - relevant architecture/decision/module docs
 

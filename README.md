@@ -39,7 +39,7 @@ The agent does the bookkeeping. You do the engineering.
 │  (long-lived, agent-maintained)         │
 ├─────────────────────────────────────────┤
 │  Dynamic Memory Layer                   │
-│  .project-memory/                       │
+│  project-memory/                       │
 │  current-focus, tasks, lessons, log     │
 │  (hot state, frequently updated)        │
 └─────────────────────────────────────────┘
@@ -64,13 +64,15 @@ Copy or clone this framework into your existing repository:
 ```bash
 # Option A: Clone and copy
 git clone https://github.com/Jinbo666/RepoAtlas
-cp -r RepoAtlas/{AGENTS.md,docs,.project-memory} /path/to/your/project/
+cp -r RepoAtlas/{AGENTS.md,docs,project-memory} /path/to/your/project/
 
 # Option B: Use as a template on GitHub
 # Click "Use this template" on the repo page
 ```
 
-This is **non-invasive** — it only adds `AGENTS.md`, a `docs/` directory, and a `.project-memory/` directory. It does not touch your existing code, configs, or docs.
+It is **non-invasive** for application code and configs: you add `AGENTS.md`, `project-memory/`, and the framework files under `docs/`.
+
+**If you already have a `docs/` folder:** many projects already use `docs/` for their own documentation. RepoAtlas uses conventional subpaths such as `docs/agent/`, `docs/architecture/`, `docs/decisions/`, `docs/modules/`, and `docs/raw/`. Simply **copy or merge** this repository’s `docs/` contents into your project’s `docs/`—no need to replace your existing docs; only these subfolders are required for the harness.
 
 ### 2. First Run
 
@@ -90,8 +92,8 @@ That's it. The agent will:
 
 After initialization, just start working. The agent reads `AGENTS.md` at the start of each session, which routes it to:
 
-1. `.project-memory/current-focus.md` — what matters now
-2. `.project-memory/tasks/active.md` — what's in progress
+1. `project-memory/current-focus.md` — what matters now
+2. `project-memory/tasks/active.md` — what's in progress
 3. `docs/architecture/system-overview.md` — how the system works
 
 The agent loads only what it needs and stops early. No 1000-page context dump.
@@ -144,7 +146,7 @@ your-project/
 │   ├── architecture/                  # System shape (generated on first run)
 │   ├── decisions/                     # Durable technical decisions
 │   └── modules/                       # Module boundary docs
-└── .project-memory/
+└── project-memory/
     ├── current-focus.md               # Dashboard — priorities, risks, next actions
     ├── tasks/
     │   ├── active.md                  # Current work
@@ -221,10 +223,12 @@ agent 做记账的苦活。你做工程。
 
 ```bash
 git clone https://github.com/Jinbo666/RepoAtlas
-cp -r RepoAtlas/{AGENTS.md,docs,.project-memory} /path/to/your/project/
+cp -r RepoAtlas/{AGENTS.md,docs,project-memory} /path/to/your/project/
 ```
 
-这是**无侵入的**——只会添加 `AGENTS.md`、`docs/` 目录和 `.project-memory/` 目录，不会动你现有的任何代码、配置或文档。
+对**应用代码与配置**而言是无侵入的：你会增加 `AGENTS.md`、`project-memory/`，以及在 `docs/` 下的框架内容。
+
+**若你已有 `docs/` 目录：**很多项目本身就有 `docs/`。本框架使用 `docs/agent/`、`docs/architecture/`、`docs/decisions/`、`docs/modules/`、`docs/raw/` 等子路径。把本仓库 **`docs/` 里的内容拷贝或合并**进你工程即可，不必覆盖你原有文档；只要这些子目录存在即可。
 
 ### 2. 首次运行
 

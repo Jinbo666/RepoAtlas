@@ -5,7 +5,7 @@
 This file defines how to load **just enough context** for a task.
 
 Context is limited.
-Do not read the whole repository, the whole `docs/`, or the whole `.project-memory/` by default.
+Do not read the whole repository, the whole `docs/`, or the whole `project-memory/` by default.
 
 The goal is:
 - load the minimum useful context
@@ -19,8 +19,8 @@ The goal is:
 On a normal task or new session, load in this order and stop as soon as enough task-relevant context is available:
 
 ### Mandatory
-1. `.project-memory/current-focus.md`
-2. `.project-memory/tasks/active.md`
+1. `project-memory/current-focus.md`
+2. `project-memory/tasks/active.md`
 3. `docs/architecture/system-overview.md`
 
 ### Task-directed
@@ -28,7 +28,7 @@ On a normal task or new session, load in this order and stop as soon as enough t
    - `docs/architecture/`
    - `docs/decisions/`
    - `docs/modules/`
-   - `.project-memory/`
+   - `project-memory/`
 
 ### Operational guidance
 5. only if needed:
@@ -58,12 +58,12 @@ Do not continue reading “just in case”.
 
 ### A. Narrow bugfix
 Prioritize:
-1. `.project-memory/current-focus.md`
-2. `.project-memory/tasks/active.md`
+1. `project-memory/current-focus.md`
+2. `project-memory/tasks/active.md`
 3. `docs/architecture/system-overview.md`
 4. affected code/tests/configs
 5. relevant module docs
-6. `.project-memory/recent-lessons.md`
+6. `project-memory/recent-lessons.md`
 7. recent `log.md` entries only if recent history matters
 
 Do not read broad architecture or many decision files unless the bug crosses boundaries.
@@ -170,7 +170,7 @@ If memory contradicts code, update the memory.
 
 - Do not read all memory files by default
 - Do not read all raw docs by default
-- Do not treat `.project-memory/` as complete truth
+- Do not treat `project-memory/` as complete truth
 - Do not keep reading after the next safe action is already clear
 - Do not confuse navigation docs with project facts
 

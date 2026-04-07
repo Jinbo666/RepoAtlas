@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file is the navigation index for `.project-memory/`.
+This file is the navigation index for `project-memory/`.
 
 It should help an agent quickly find:
 - current working state

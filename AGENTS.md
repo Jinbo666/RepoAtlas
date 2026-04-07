@@ -6,15 +6,15 @@ Give the agent a **map**, not a manual.
 
 - code, tests, configs → source material
 - `docs/` → curated long-lived docs
-- `.project-memory/` → dynamic working memory
+- `project-memory/` → dynamic working memory
 
 ---
 
 ## Init Gate
 
 **Initialized** = both exist:
-- `.project-memory/source-roots.md`
-- `.project-memory/current-focus.md`
+- `project-memory/source-roots.md`
+- `project-memory/current-focus.md`
 
 Missing either → read `docs/agent/FIRST_RUN.md`
 
@@ -24,10 +24,10 @@ Missing either → read `docs/agent/FIRST_RUN.md`
 
 Read in order, stop when enough context is available:
 
-1. `.project-memory/current-focus.md`
-2. `.project-memory/tasks/active.md`
+1. `project-memory/current-focus.md`
+2. `project-memory/tasks/active.md`
 3. `docs/architecture/system-overview.md`
-4. relevant `docs/` and `.project-memory/` files
+4. relevant `docs/` and `project-memory/` files
 
 Operational guidance → `docs/agent/index.md`
 
@@ -66,4 +66,4 @@ No raw chat. No restating code.
 - compact, navigable docs
 - mark uncertainty explicitly
 - `docs/raw/` = source material
-- `.project-memory/` = working memory, not sole truth
+- `project-memory/` = working memory, not sole truth

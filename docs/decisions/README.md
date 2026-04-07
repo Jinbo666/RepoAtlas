@@ -44,7 +44,7 @@ Do not use this directory for:
 - ephemeral chat summaries
 
 Those belong in:
-- `.project-memory/`
+- `project-memory/`
 - `docs/modules/`
 - `docs/architecture/`
 - `docs/raw/`
@@ -100,7 +100,7 @@ Each decision note should usually include:
 - `docs/architecture/` explains the current shape of the system
 - `docs/modules/` explains module responsibilities and boundaries
 - `docs/decisions/` explains why important long-lived choices were made
-- `.project-memory/` tracks current working state and hot lessons
+- `project-memory/` tracks current working state and hot lessons
 
 A decision may later influence:
 - architecture docs

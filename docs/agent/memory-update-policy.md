@@ -4,7 +4,7 @@
 
 This file defines how durable engineering knowledge should be compiled into:
 
-- `.project-memory/`
+- `project-memory/`
 - `docs/architecture/`
 - `docs/decisions/`
 - `docs/modules/`
@@ -58,7 +58,7 @@ Examples:
 - tiny local fix with no reusable lesson
 
 Required:
-- append to `.project-memory/log.md` only if useful
+- append to `project-memory/log.md` only if useful
 
 Optional:
 - update active task status if it truly changed
@@ -77,16 +77,16 @@ Examples:
 - clarified task state that matters beyond this session
 
 Required:
-- append to `.project-memory/log.md`
-- update relevant files in `.project-memory/`
+- append to `project-memory/log.md`
+- update relevant files in `project-memory/`
 - create or update one session note if the change has future value
 - update one or more affected module / task / lesson pages as needed
 
 Typical targets:
-- `.project-memory/log.md`
-- `.project-memory/tasks/active.md`
-- `.project-memory/recent-lessons.md`
-- `.project-memory/current-focus.md` if priorities changed
+- `project-memory/log.md`
+- `project-memory/tasks/active.md`
+- `project-memory/recent-lessons.md`
+- `project-memory/current-focus.md` if priorities changed
 - `docs/modules/<module>.md` if module behavior understanding changed
 
 ---
@@ -102,22 +102,22 @@ Examples:
 - decision reversal with long-term consequences
 
 Required:
-- append to `.project-memory/log.md`
+- append to `project-memory/log.md`
 - create or update one session note
-- update `.project-memory/current-focus.md` if priorities or risks changed
+- update `project-memory/current-focus.md` if priorities or risks changed
 - update relevant architecture / decision / module docs
 - update lessons if a durable lesson emerged
 
 Typical targets:
-- `.project-memory/log.md`
-- `.project-memory/current-focus.md`
-- `.project-memory/tasks/active.md`
+- `project-memory/log.md`
+- `project-memory/current-focus.md`
+- `project-memory/tasks/active.md`
 - `docs/architecture/system-overview.md`
 - `docs/architecture/module-graph.md`
 - `docs/architecture/invariants.md`
 - `docs/decisions/*.md`
 - `docs/modules/*.md`
-- `.project-memory/recent-lessons.md`
+- `project-memory/recent-lessons.md`
 
 ---
 
@@ -175,7 +175,7 @@ A lesson should be recorded when:
 - the lesson affects future implementation choices
 
 Record lessons in:
-- `.project-memory/recent-lessons.md`
+- `project-memory/recent-lessons.md`
 
 If a lesson becomes stable and long-lived, “graduate” it into:
 - `docs/architecture/invariants.md`, or
@@ -229,7 +229,7 @@ Create or update a session note when:
 Do not create a session note for trivial changes.
 
 Session notes belong under:
-- `.project-memory/sessions/`
+- `project-memory/sessions/`
 
 Use the session template under:
 - `docs/agent/templates/session-note.md`

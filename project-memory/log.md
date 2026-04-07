@@ -40,12 +40,12 @@ Examples of `<type>`:
 ## [2026-04-07 15:20] bootstrap | initialize project memory framework
 
 ### Summary
-Initialized `.project-memory/` and first-pass architecture docs.
+Initialized `project-memory/` and first-pass architecture docs.
 
 ### Touched
-- `.project-memory/source-roots.md`
-- `.project-memory/current-focus.md`
-- `.project-memory/index.md`
+- `project-memory/source-roots.md`
+- `project-memory/current-focus.md`
+- `project-memory/index.md`
 - `docs/architecture/system-overview.md`
 
 ### Why

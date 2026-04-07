@@ -100,7 +100,7 @@ Prefer stable, human-readable names.
 - `docs/architecture/` describes top-level system shape
 - `docs/modules/` describes important local boundaries and responsibilities
 - `docs/decisions/` explains why certain durable choices were made
-- `.project-memory/` tracks current state, active tasks, and hot lessons
+- `project-memory/` tracks current state, active tasks, and hot lessons
 
 Module notes may reference:
 - decisions

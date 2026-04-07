@@ -25,7 +25,7 @@ Initialize three layers:
    Structured long-lived docs under `docs/`, such as architecture, decisions, modules, and agent operation docs.
 
 3. **Dynamic Project Memory**  
-   Working memory under `.project-memory/` for current focus, logs, tasks, recent lessons, and session history.
+   Working memory under `project-memory/` for current focus, logs, tasks, recent lessons, and session history.
 
 ---
 
@@ -52,7 +52,7 @@ Examples:
 - `docs/agent/`
 
 ### C. Dynamic project memory
-These are working-memory files under `.project-memory/`.
+These are working-memory files under `project-memory/`.
 
 ---
 
@@ -78,16 +78,16 @@ Create these only if they do not already exist:
 - `docs/architecture/`
 - `docs/decisions/`
 - `docs/modules/`
-- `.project-memory/`
-- `.project-memory/tasks/`
-- `.project-memory/sessions/`
+- `project-memory/`
+- `project-memory/tasks/`
+- `project-memory/sessions/`
 
 Do not create unnecessary files beyond what is useful for initialization.
 
 ### 3. Initialize source roots
 Create or update:
 
-- `.project-memory/source-roots.md`
+- `project-memory/source-roots.md`
 
 This file must record:
 - code roots
@@ -101,14 +101,14 @@ This becomes the repository's root map for future incremental compilation.
 ### 4. Initialize a thin project map
 Create or update these files with concise first-pass content:
 
-- `.project-memory/index.md`
-- `.project-memory/current-focus.md`
-- `.project-memory/log.md`
-- `.project-memory/tasks/active.md`
-- `.project-memory/tasks/backlog.md`
-- `.project-memory/tasks/done.md`
-- `.project-memory/source-registry.md`
-- `.project-memory/recent-lessons.md`
+- `project-memory/index.md`
+- `project-memory/current-focus.md`
+- `project-memory/log.md`
+- `project-memory/tasks/active.md`
+- `project-memory/tasks/backlog.md`
+- `project-memory/tasks/done.md`
+- `project-memory/source-registry.md`
+- `project-memory/recent-lessons.md`
 
 Rules:
 - keep them thin
@@ -161,7 +161,7 @@ If existing docs are already structured and current, they may remain where they 
 ### 8. Write a bootstrap log entry
 Append one entry to:
 
-- `.project-memory/log.md`
+- `project-memory/log.md`
 
 Type:
 - `bootstrap`
@@ -252,7 +252,7 @@ After finishing, provide a concise summary including:
 After initialization, future work should usually follow the normal workflow:
 
 - read `AGENTS.md`
-- read `.project-memory/current-focus.md`
+- read `project-memory/current-focus.md`
 - read relevant architecture / decision / module docs
 - update memory incrementally after meaningful work
 
