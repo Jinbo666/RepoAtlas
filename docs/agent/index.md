@@ -83,7 +83,19 @@ Use this when:
 
 ---
 
-### 5. Creating structured docs
+### 5. Ingesting raw documents
+
+When the user asks to process documents in `docs/raw/`:
+
+Read:
+
+- `docs/agent/memory-update-policy.md` → **Raw Doc Ingestion Protocol** section
+
+Then follow the protocol: read the raw doc, extract durable knowledge, compile into curated docs and memory, update the source registry, and log the ingest.
+
+---
+
+### 6. Creating structured docs
 Use templates under:
 
 - `docs/agent/templates/`

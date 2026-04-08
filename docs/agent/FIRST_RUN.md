@@ -148,13 +148,34 @@ Create or update:
 Keep these lightweight.
 Do not overfill them on first run.
 
-### 7. Register existing raw documents
-If raw or legacy project docs exist, do not rewrite them.
-Instead:
+### 7. Register and compile existing raw documents
+If raw or legacy project docs exist (in `docs/raw/` or elsewhere):
 
+#### 7a. Register
 - leave them in place
 - classify them as raw source material
 - add them to `source-roots.md` or `source-registry.md` as appropriate
+
+#### 7b. First-pass compilation
+For each registered raw document that contains durable engineering value:
+
+1. read the document
+2. extract key knowledge: architecture insights, constraints, decisions, pitfalls, module boundaries
+3. compile findings into the appropriate targets:
+   - architecture docs if the doc reveals system shape or invariants
+   - decision notes if the doc records a durable choice
+   - module notes if the doc clarifies responsibilities or boundaries
+   - `recent-lessons.md` if the doc contains pitfall/debugging knowledge
+   - `current-focus.md` if the doc changes priorities or risks
+4. update `source-registry.md` with status `ingested` and a brief note
+5. append a log entry of type `ingest`
+
+Rules:
+- do not rewrite the raw document itself
+- do not create a curated page per raw document by default — extract knowledge into existing structure
+- if a raw doc has no durable engineering value, mark it `skipped` in the registry
+- prefer thin first-pass extraction; depth can be added in later sessions
+- if the number of raw docs is large, prioritize the most relevant ones and mark the rest `pending`
 
 If existing docs are already structured and current, they may remain where they are or be referenced from curated docs.
 

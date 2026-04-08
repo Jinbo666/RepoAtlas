@@ -58,7 +58,7 @@ agent 做记账的苦活。你做工程。
 
 | 操作 | 作用 | 何时 |
 |------|------|------|
-| **Ingest（编译）** | 从源材料提取持久知识，更新记忆与文档 | 有意义的代码变更、调试、设计讨论之后 |
+| **Ingest（编译）** | 从源材料（代码、对话结论、**`docs/raw/`**）提取持久知识，更新记忆与策划文档 | 有意义的代码工作之后；`docs/raw/` 新增或变更后（由你显式触发）；首次运行也会编译已有原始文档 |
 | **Query（加载）** | 按任务分层加载刚好够用的上下文 | 每次会话、每个任务 |
 | **Lint（健康检查）** | 检查记忆是否过期、矛盾、孤儿文档 | 大改之后，或怀疑漂移时 |
 
@@ -85,7 +85,13 @@ cp -r RepoAtlas/{AGENTS.md,docs,project-memory} /path/to/your/project/
 
 > 阅读 `docs/agent/FIRST_RUN.md` 并初始化项目。
 
-就这样。agent 会自动扫描仓库结构、分类源代码根目录、创建项目地图、初始化记忆层。
+就这样。agent 会：
+
+1. 扫描仓库结构、分类源代码根目录
+2. 创建项目地图（架构概览、模块图、不变量）
+3. 初始化记忆层（当前焦点、任务脚手架、日志）
+4. **登记并编译** `docs/raw/` 里已有的内容：把可持久化的知识写入 architecture / decisions / modules / lessons 等，更新 `source-registry.md`，并写 `ingest` 类型日志（见 `docs/agent/FIRST_RUN.md` 第 7 步）
+5. 写一条 bootstrap 日志
 
 ### 3. 日常使用
 
@@ -99,7 +105,10 @@ cp -r RepoAtlas/{AGENTS.md,docs,project-memory} /path/to/your/project/
 docs/raw/
 ```
 
-框架把 `docs/raw/` 视为**不可变的源材料**。agent 只读不改。当你让 agent 处理一份原始文档时，它会提取持久价值的知识，编译进相应的策划文档和记忆文件——就像往 wiki 里导入一个新的信息源。
+框架把 `docs/raw/` 视为**不可变的源材料**。agent **只读、不改**这些文件本身。
+
+- **首次运行：** `FIRST_RUN.md` 要求 agent 把 `docs/raw/` 里已有文档**编译**进策划层，而不只是登记文件名。
+- **之后：** 不会在每次会话自动扫 `docs/raw/`。你往里面加了新文档或改了内容后，说一句例如 *「处理一下 docs/raw/ 里新加的文件」* 或 *「按 AGENTS.md，把 docs/raw/… 编译进记忆」*。agent 按 `docs/agent/memory-update-policy.md` 里的 **Raw Doc Ingestion Protocol** 执行（`AGENTS.md` 的 Updates 一节也有入口链接）。
 
 ---
 
@@ -178,6 +187,7 @@ agent 擅长**读取**记忆（加载上下文、查看错题本），但很少*
 | 做了一个技术选型决策 | *「为这个创建一条 decision note。」* |
 | 一次有干货的 session 结束前 | *「更新项目记忆：log、current-focus，有没有新 lesson。」* |
 | 定期健康检查 | *「跑一次 lint，看看记忆层有没有漂移。」* |
+| `docs/raw/` 新增或更新了文档 | *「把 docs/raw/ 编译进来（或指定某个文件）。」* |
 
 微小改动（typo、格式调整）什么都不用管。
 

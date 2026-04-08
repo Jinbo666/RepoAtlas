@@ -264,6 +264,59 @@ When raw or curated docs change:
 
 ---
 
+## Raw Doc Ingestion Protocol
+
+When the user asks to process documents in `docs/raw/` (or similar raw source locations), follow this protocol:
+
+### Trigger
+
+Ingestion is explicitly triggered by the user. Examples:
+
+- "Process the new doc in docs/raw/"
+- "Compile the design notes I just added"
+- "Ingest docs/raw/api-redesign.md"
+- "Read AGENTS.md and process any new raw docs"
+
+The agent does not automatically scan `docs/raw/` on every session. Ingestion is a deliberate operation.
+
+### Steps
+
+For each raw document to be ingested:
+
+1. **Read** the document fully
+2. **Discuss** key takeaways with the user if interactive; otherwise proceed with extraction
+3. **Extract** durable knowledge — architecture insights, constraints, decisions, pitfalls, module boundaries, invariants
+4. **Compile** findings into the appropriate targets:
+   - `docs/architecture/*.md` — if the doc reveals system shape, flow, or invariants
+   - `docs/decisions/*.md` — if the doc records a durable choice or tradeoff
+   - `docs/modules/*.md` — if the doc clarifies module responsibilities or boundaries
+   - `project-memory/recent-lessons.md` — if the doc contains pitfall or debugging knowledge
+   - `project-memory/current-focus.md` — if the doc changes priorities, risks, or next actions
+   - `project-memory/tasks/active.md` — if the doc introduces or changes tasks
+5. **Update** `project-memory/source-registry.md` — set status to `ingested` with a brief note of what was extracted
+6. **Log** an entry of type `ingest` in `project-memory/log.md`
+
+### Rules
+
+- never modify the raw document itself — `docs/raw/` is immutable
+- do not create one curated page per raw document by default — extract knowledge into existing structure
+- a single raw doc may touch 5–15 curated/memory files
+- if a raw doc has no durable engineering value, mark it `skipped` in the registry
+- if the user adds multiple docs at once, process them one at a time unless batch mode is explicitly requested
+- after ingestion, briefly summarize what was extracted and which files were updated
+
+### Incremental re-ingestion
+
+If a raw document was previously ingested but has been updated:
+
+1. re-read the document
+2. identify what changed compared to the previously extracted knowledge
+3. update only the affected curated docs and memory files
+4. update the registry entry with new date and notes
+5. log an entry of type `ingest` with a note that this is a re-ingestion
+
+---
+
 ## Minimal Update Targets by Situation
 
 ### Bugfix with reusable lesson

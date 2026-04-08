@@ -58,7 +58,7 @@ The agent does the bookkeeping. You do the engineering.
 
 | Operation | What it does | When |
 |-----------|-------------|------|
-| **Ingest** | Agent reads sources, extracts durable knowledge, updates affected memory/docs | After meaningful code changes, debugging sessions, design discussions |
+| **Ingest** | Agent reads sources (code, chat conclusions, **`docs/raw/`**), extracts durable knowledge, updates memory and curated docs | After meaningful code work; after new or updated files in `docs/raw/` (user-triggered); first run also compiles existing raw docs |
 | **Query** | Agent loads just enough context for the current task via layered reading profiles | Every session start, every task |
 | **Lint** | Agent health-checks the memory layer for staleness, contradictions, orphan docs | After heavy changes, or when drift is suspected |
 
@@ -95,7 +95,8 @@ That's it. The agent will:
 2. Classify source roots (code, tests, configs, raw docs)
 3. Create a thin project map (architecture overview, module graph, invariants)
 4. Initialize the memory layer (current focus, task scaffold, log)
-5. Write a bootstrap log entry
+5. **Register and compile** anything already in `docs/raw/`: extract durable knowledge into architecture / decisions / modules / lessons as appropriate, update `source-registry.md`, and log `ingest` entries (see `docs/agent/FIRST_RUN.md` step 7)
+6. Write a bootstrap log entry
 
 ### 3. Normal Work
 
@@ -115,7 +116,10 @@ Have design docs, meeting notes, research notes, legacy specs, or pitfall writeu
 docs/raw/
 ```
 
-The framework treats `docs/raw/` as **immutable source material**. The agent reads from it but never modifies it. When you tell the agent to process a raw doc, it extracts durable knowledge and compiles it into the appropriate curated docs and memory files — just like ingesting a new source into a wiki.
+The framework treats `docs/raw/` as **immutable source material**. The agent reads from it but **never edits** those files.
+
+- **First run:** `FIRST_RUN.md` tells the agent to compile existing `docs/raw/` content into the curated layer (not just list filenames).
+- **Later:** Ingestion does **not** run on every session. When you add or change raw docs, say something like *"Process the new files in docs/raw/"* or *"Follow AGENTS.md and ingest docs/raw/…"*. The agent follows the **Raw Doc Ingestion Protocol** in `docs/agent/memory-update-policy.md` (also linked from `AGENTS.md` under Updates).
 
 ---
 
@@ -194,6 +198,7 @@ The agent is good at **reading** memory (loading context, checking lessons). But
 | Made a technical decision | *"Create a decision note for this."* |
 | End of a productive session | *"Update project memory: log, current-focus, any new lessons."* |
 | Periodic health check | *"Run a lint pass on the memory layer."* |
+| New or updated docs in `docs/raw/` | *"Ingest docs/raw/ (or this file: …)."* |
 
 Tiny changes (typo fixes, formatting) need nothing.
 

@@ -53,6 +53,8 @@ Memory contradicts code → update the memory.
 | medium | update affected memory / docs |
 | heavy | update architecture / decisions / memory |
 
+Ingest raw docs → `docs/agent/memory-update-policy.md` § Raw Doc Ingestion Protocol
+
 Details → `docs/agent/memory-update-policy.md`
 
 Only preserve durable engineering knowledge.
