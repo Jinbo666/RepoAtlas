@@ -6,6 +6,8 @@
 
 ---
 
+![](images/architecture.png)
+
 ## Why this exists
 
 Working with coding agents usually means **short context windows** and **no durable memory**: every new session starts cold. The model forgets what you decided last week, which traps you already hit, and what the team agreed the “current focus” should be. You re-explain the same constraints again and again.
@@ -56,11 +58,13 @@ The agent does the bookkeeping. You do the engineering.
 
 ### Three Operations
 
-| Operation | What it does | When |
-|-----------|-------------|------|
-| **Ingest** | Agent reads sources (code, chat conclusions, **`docs/raw/`**), extracts durable knowledge, updates memory and curated docs | After meaningful code work; after new or updated files in `docs/raw/` (user-triggered); first run also compiles existing raw docs |
-| **Query** | Agent loads just enough context for the current task via layered reading profiles | Every session start, every task |
-| **Lint** | Agent health-checks the memory layer for staleness, contradictions, orphan docs | After heavy changes, or when drift is suspected |
+
+| Operation  | What it does                                                                                                               | When                                                                                                                              |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Ingest** | Agent reads sources (code, chat conclusions, `**docs/raw/`**), extracts durable knowledge, updates memory and curated docs | After meaningful code work; after new or updated files in `docs/raw/` (user-triggered); first run also compiles existing raw docs |
+| **Query**  | Agent loads just enough context for the current task via layered reading profiles                                          | Every session start, every task                                                                                                   |
+| **Lint**   | Agent health-checks the memory layer for staleness, contradictions, orphan docs                                            | After heavy changes, or when drift is suspected                                                                                   |
+
 
 ---
 
@@ -192,13 +196,15 @@ The agent is good at **reading** memory (loading context, checking lessons). But
 
 **You don't need to prompt after every change.** Only at meaningful checkpoints:
 
-| When | What to say |
-|------|-------------|
-| Fixed a bug with a reusable lesson | *"Record this in recent-lessons and log."* |
-| Made a technical decision | *"Create a decision note for this."* |
-| End of a productive session | *"Update project memory: log, current-focus, any new lessons."* |
-| Periodic health check | *"Run a lint pass on the memory layer."* |
-| New or updated docs in `docs/raw/` | *"Ingest docs/raw/ (or this file: …)."* |
+
+| When                               | What to say                                                     |
+| ---------------------------------- | --------------------------------------------------------------- |
+| Fixed a bug with a reusable lesson | *"Record this in recent-lessons and log."*                      |
+| Made a technical decision          | *"Create a decision note for this."*                            |
+| End of a productive session        | *"Update project memory: log, current-focus, any new lessons."* |
+| Periodic health check              | *"Run a lint pass on the memory layer."*                        |
+| New or updated docs in `docs/raw/` | *"Ingest docs/raw/ (or this file: …)."*                         |
+
 
 Tiny changes (typo fixes, formatting) need nothing.
 
@@ -227,7 +233,6 @@ No vendor lock-in. It's just markdown.
 This project is inspired by two key ideas:
 
 - **[LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)** by Andrej Karpathy — the pattern of having LLMs build and maintain a persistent, compounding knowledge base instead of re-deriving knowledge from scratch on every query. RepoAtlas adapts this from personal knowledge management to code engineering: the "wiki" becomes a project memory layer; "ingest" becomes compilation of code changes, debugging lessons, and design decisions; "lint" becomes truth maintenance against the living codebase.
-
 - **[Harness Engineering](https://openai.com/zh-Hans-CN/index/harness-engineering/)** by OpenAI — the practice of building structured harnesses (AGENTS.md, docs, conventions) that give AI agents the context they need to work effectively on real codebases. RepoAtlas provides a ready-made harness starter that any project can adopt.
 
 ---
