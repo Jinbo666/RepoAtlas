@@ -109,6 +109,22 @@ Examples:
 
 ---
 
+### 7. Archetype-specific operation
+
+Archetype is stored at the top of `project-memory/source-roots.md`. If it is `auto` or missing, first run detection per:
+
+- `docs/agent/archetypes/detection.md`
+
+Then write the resolved value back.
+
+If the resolved archetype is `docs-kb`, read:
+
+- `docs/agent/archetypes/docs-kb.md`
+
+It is authoritative for docs-kb curated layer shape, truth priority, ingest defaults, change-level examples, and lint checks. Prefer it over the defaults in the other agent manuals when the two differ.
+
+---
+
 ## Directory Map
 
 - `FIRST_RUN.md`  
@@ -125,6 +141,9 @@ Examples:
 
 - `templates/`  
   Reusable templates for structured documentation.
+
+- `archetypes/`  
+  Archetype detection and archetype-specific operation pages. `detection.md` defines the auto-detection rubric applied when archetype is `auto`. `docs-kb.md` is the authoritative docs-kb reference. The `code` archetype is the default and is documented inline across the other manuals.
 
 ---
 

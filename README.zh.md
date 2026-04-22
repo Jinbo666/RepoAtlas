@@ -68,6 +68,23 @@ agent 做记账的苦活。你做工程。
 
 ---
 
+## 两种项目形态，自动识别（Archetype）
+
+并不是每个项目都是业务代码。RepoAtlas 原生支持两种项目形态——**同一套框架，两种默认骨架**：
+
+| Archetype | 适用场景 | 第一真理 | 默认 curated 骨架 |
+| --- | --- | --- | --- |
+| `code` | 应用/工程项目 | 代码和测试 | `docs/architecture/`、`docs/modules/`、`docs/decisions/` |
+| `docs-kb` | 知识库 / 研究笔记 / 文档编译——把文档丢进 `docs/raw/`，agent 自动编译成策划知识 | `docs/raw/` 下的原始文档 | `docs/topics/`、`docs/concepts/`、`docs/glossary.md`、`docs/summaries/`、`docs/decisions/` |
+
+三层结构、Ingest / Query / Lint 三动作、所有操作手册**完全保持不变**。只有真理优先级、默认骨架、以及部分 change-level 示例会按 archetype 分支。
+
+**你不需要手动声明 archetype。** `project-memory/source-roots.md` 默认就是 `Archetype: auto`。首次会话时 agent 会按 [`docs/agent/archetypes/detection.md`](docs/agent/archetypes/detection.md) 里的规则扫一遍仓库（包管理文件、`src/` 是否有内容、`docs/raw/` 的形态等），自动判别结果、回写进 `source-roots.md`、打一条日志。只有当信号真正含糊时它才会问你一次。你也可以随时手动写死值来覆盖自动识别；改回 `auto` 则会重新识别。
+
+如果识别结果是 `docs-kb`，再看 [`docs/agent/archetypes/docs-kb.md`](docs/agent/archetypes/docs-kb.md)，它是 docs-kb 形态的权威说明。
+
+---
+
 ## 快速开始
 
 ### 1. 放进你的项目

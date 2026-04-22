@@ -68,6 +68,23 @@ The agent does the bookkeeping. You do the engineering.
 
 ---
 
+## Two Archetypes, Auto-Detected
+
+Not every project is application code. RepoAtlas supports two project archetypes out of the box — **same framework, two default curated shapes**:
+
+| Archetype | Use it for | Primary truth | Default curated layer |
+| --- | --- | --- | --- |
+| `code` | Application / engineering projects | code and tests | `docs/architecture/`, `docs/modules/`, `docs/decisions/` |
+| `docs-kb` | Knowledge base, research notes, docs compilation — you drop files into `docs/raw/` and the agent builds curated knowledge | raw docs under `docs/raw/` | `docs/topics/`, `docs/concepts/`, `docs/glossary.md`, `docs/summaries/`, `docs/decisions/` |
+
+The three-layer structure, the Ingest / Query / Lint operations, and all operational manuals stay the same. Only the truth-priority order, the default scaffolding, and some change-level examples differ.
+
+**You do not declare archetype manually.** `project-memory/source-roots.md` ships with `Archetype: auto`. On the first session, the agent inspects your repo (package manifests, populated `src/`, the shape of `docs/raw/`, etc.) using the rubric in [`docs/agent/archetypes/detection.md`](docs/agent/archetypes/detection.md), writes the detected value back, and moves on. It only asks you when signals are genuinely ambiguous. You can hard-set the value any time to override; setting it back to `auto` retriggers detection.
+
+For `docs-kb`, also see [`docs/agent/archetypes/docs-kb.md`](docs/agent/archetypes/docs-kb.md) — it is the authoritative reference for that archetype.
+
+---
+
 ## Quick Start
 
 ### 1. Add to your project

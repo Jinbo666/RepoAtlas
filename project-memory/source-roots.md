@@ -16,7 +16,24 @@ It is not a full project summary.
 
 ---
 
+## Archetype
+
+- Archetype: `auto`
+
+Allowed values:
+- `auto` — agent auto-detects on first session using `docs/agent/archetypes/detection.md` and writes the decided value back here. This is the default for new repositories.
+- `code` — application / engineering project. Code and tests are primary source of truth.
+- `docs-kb` — knowledge base / docs compilation project. Raw docs under `docs/raw/` are primary source of truth.
+
+On first use the agent reads this line; if it is `auto` (or missing), it runs archetype detection, writes the result here, and logs one `archetype-detect` entry in `log.md`. After that, this field is sticky — re-detection only happens if the user sets it back to `auto` or explicitly asks.
+
+If the detected value is `docs-kb`, also consult `docs/agent/archetypes/docs-kb.md` for archetype-specific behavior (curated layer shape, truth priority, lint checks).
+
+---
+
 ## Code Roots
+
+Applies to: `code` archetype (required). Under `docs-kb`, leave this section empty or note "not applicable".
 
 - `src/`
 - `app/`
@@ -40,16 +57,16 @@ Write policy:
 
 ## Raw Source Roots
 
-- `docs/raw/`
-- `notes/`
-- `specs/`
-- `research/`
+Applies to: both archetypes. Under `docs-kb` this is the **primary** root.
 
-> Replace with actual raw or legacy source locations.
+- `docs/raw/`
+
+> For `code` archetype, add additional raw locations if they exist (e.g. `notes/`, `specs/`, `research/`). For `docs-kb`, `docs/raw/` is typically the only raw root.
 
 Role:
 - raw human-authored material
-- source material for interpretation and incremental compilation
+- under `docs-kb`: primary source of truth
+- under `code`: source material for interpretation and incremental compilation, subordinate to code/tests
 - may include drafts, pitfall notes, legacy docs, meeting notes, research notes
 
 Write policy:
@@ -60,15 +77,25 @@ Write policy:
 
 ## Curated Docs Roots
 
+Under `code` archetype:
 - `docs/architecture/`
 - `docs/decisions/`
 - `docs/modules/`
 - `docs/agent/`
 
+Under `docs-kb` archetype:
+- `docs/topics/`
+- `docs/concepts/`
+- `docs/glossary.md`
+- `docs/summaries/`
+- `docs/decisions/` (editorial / structural decisions)
+- `docs/agent/`
+
 Role:
 - structured, maintained, agent-readable repository docs
-- higher quality than raw notes, but still subordinate to code/tests
-- used for navigation, architecture understanding, and durable decisions
+- under `code`: subordinate to code/tests
+- under `docs-kb`: derived from and subordinate to raw docs
+- used for navigation, understanding, and durable decisions
 
 Write policy:
 - agent may update these deliberately when durable understanding changes
@@ -95,13 +122,20 @@ Write policy:
 
 ## Source of Truth Priority
 
-When conflicts exist, prefer:
+Under `code` archetype, when conflicts exist, prefer:
 
 1. code and tests
 2. runtime/config behavior
 3. current user instruction
 4. curated docs
 5. old project memory / session notes
+
+Under `docs-kb` archetype:
+
+1. raw docs under `docs/raw/`
+2. current user instruction
+3. curated docs (`docs/topics/`, `docs/concepts/`, `docs/glossary.md`, `docs/summaries/`, `docs/decisions/`)
+4. old project memory / session notes
 
 ---
 

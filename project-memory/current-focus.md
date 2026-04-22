@@ -28,25 +28,27 @@ These should usually come from recent lessons, active risks, or recent decisions
 
 ## Current Priorities
 
+> "Related area" = modules under `code` archetype, topics / concepts under `docs-kb` archetype.
+
 ### P1
 - Title:
 - Status:
 - Why it matters:
-- Related modules:
+- Related area:
 - Next action:
 
 ### P2
 - Title:
 - Status:
 - Why it matters:
-- Related modules:
+- Related area:
 - Next action:
 
 ### P3
 - Title:
 - Status:
 - Why it matters:
-- Related modules:
+- Related area:
 - Next action:
 
 Only include the highest-value active priorities.
@@ -65,7 +67,11 @@ Only include the highest-value active priorities.
   - Affected area:
   - What to watch:
 
-Use this section for active engineering risks, not generic worries.
+Use this section for concrete active risks, not generic worries.
+
+Examples by archetype:
+- `code`: "Refactor in module X may break contract Y", "Migration partially applied in staging"
+- `docs-kb`: "Raw docs A and B disagree on claim C and no decision note yet exists", "Topic map has not been updated since last batch ingest"
 
 ---
 

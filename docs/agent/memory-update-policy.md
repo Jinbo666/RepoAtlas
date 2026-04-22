@@ -2,18 +2,31 @@
 
 ## Purpose
 
-This file defines how durable engineering knowledge should be compiled into:
+This file defines how durable knowledge should be compiled into `project-memory/` and the curated docs layer.
 
-- `project-memory/`
-- `docs/architecture/`
-- `docs/decisions/`
-- `docs/modules/`
+Applies to both archetypes (`code` and `docs-kb`). Archetype-specific examples are called out below; see also `docs/agent/archetypes/docs-kb.md` for the full docs-kb rewrite.
 
-The goal is to preserve **high-value engineering knowledge** without turning the repository into a giant diary.
+The goal is to preserve **high-value durable knowledge** without turning the repository into a giant diary.
 
 Do not store raw chat transcripts.
 Do not rewrite large areas for small changes.
 Update memory proportionally.
+
+---
+
+## By Archetype (quick reference)
+
+| Area | `code` | `docs-kb` |
+|---|---|---|
+| Primary curated targets | `docs/architecture/`, `docs/modules/`, `docs/decisions/` | `docs/topics/`, `docs/concepts/`, `docs/glossary.md`, `docs/summaries/`, `docs/decisions/` |
+| Main recurring operation | engineering work + occasional ingest | ingest (dominant) |
+| Change examples typical of tiny | typo, trivial rename | typo, fix one glossary entry |
+| Change examples typical of medium | bugfix, small refactor | ingest one new raw doc, revise a concept card |
+| Change examples typical of heavy | architecture change, cross-module refactor | restructure topic map, merge/split concepts, retire a strand |
+| What `recent-lessons.md` holds | debugging / engineering pitfalls | editorial pitfalls |
+| What a decision note records | long-term technical choice | editorial / structural choice |
+
+The Change Levels and Triggers sections below use `code`-flavored examples by default. For `docs-kb`-flavored examples, see `docs/agent/archetypes/docs-kb.md` § Change Levels.
 
 ---
 
@@ -266,7 +279,9 @@ When raw or curated docs change:
 
 ## Raw Doc Ingestion Protocol
 
-When the user asks to process documents in `docs/raw/` (or similar raw source locations), follow this protocol:
+When the user asks to process documents in `docs/raw/` (or similar raw source locations), follow this protocol.
+
+> Under `docs-kb` archetype this is the **main recurring workflow**, not an occasional side operation. The protocol steps are the same; the defaults and emphasis differ (see `docs/agent/archetypes/docs-kb.md`).
 
 ### Trigger
 
@@ -287,21 +302,33 @@ For each raw document to be ingested:
 2. **Discuss** key takeaways with the user if interactive; otherwise proceed with extraction
 3. **Extract** durable knowledge — architecture insights, constraints, decisions, pitfalls, module boundaries, invariants
 4. **Compile** findings into the appropriate targets:
+
+   Under `code` archetype:
    - `docs/architecture/*.md` — if the doc reveals system shape, flow, or invariants
    - `docs/decisions/*.md` — if the doc records a durable choice or tradeoff
    - `docs/modules/*.md` — if the doc clarifies module responsibilities or boundaries
    - `project-memory/recent-lessons.md` — if the doc contains pitfall or debugging knowledge
    - `project-memory/current-focus.md` — if the doc changes priorities, risks, or next actions
    - `project-memory/tasks/active.md` — if the doc introduces or changes tasks
+
+   Under `docs-kb` archetype:
+   - `docs/summaries/<slug>.md` — always: every ingested raw doc gets a summary landing page
+   - `docs/concepts/<concept>.md` — create or update concept cards for durable reusable concepts
+   - `docs/glossary.md` — add non-obvious terms
+   - `docs/topics/README.md` — update if a new topic emerged or structure shifted
+   - `docs/decisions/*.md` — if two raw docs conflict or a structural choice is made
+   - `project-memory/recent-lessons.md` — editorial pitfalls
+   - `project-memory/current-focus.md` / `tasks/active.md` — if ingest priorities shift
 5. **Update** `project-memory/source-registry.md` — set status to `ingested` with a brief note of what was extracted
 6. **Log** an entry of type `ingest` in `project-memory/log.md`
 
 ### Rules
 
 - never modify the raw document itself — `docs/raw/` is immutable
-- do not create one curated page per raw document by default — extract knowledge into existing structure
+- under `code`: do not create one curated page per raw document by default — extract knowledge into existing structure
+- under `docs-kb`: do create one `docs/summaries/<slug>.md` per ingested raw doc (that is the traceable landing point); concept cards are still created only for durable reusable concepts, not per-doc
 - a single raw doc may touch 5–15 curated/memory files
-- if a raw doc has no durable engineering value, mark it `skipped` in the registry
+- if a raw doc has no durable value, mark it `skipped` in the registry
 - if the user adds multiple docs at once, process them one at a time unless batch mode is explicitly requested
 - after ingestion, briefly summarize what was extracted and which files were updated
 

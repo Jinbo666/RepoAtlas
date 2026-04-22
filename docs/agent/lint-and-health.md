@@ -77,6 +77,17 @@ A lint pass may check some or all of the following:
 - Are curated docs missing key conclusions from raw docs?
 - Are raw docs being mistaken for polished final truth?
 
+### H. Docs-kb specific
+Run these only under `docs-kb` archetype.
+
+- Does `docs/topics/README.md` still cover every existing concept and summary, or are there orphans?
+- Is every file under `docs/raw/` registered in `source-registry.md`? Any silent additions?
+- Does every raw doc with status `ingested` have a corresponding `docs/summaries/<slug>.md`?
+- Do glossary entries and concept cards agree on definitions, or has one drifted?
+- Do summaries still reference raw-doc versions that have since been revised or superseded?
+- Are there concept cards with no supporting raw doc (orphaned claims)?
+- Are conflicts between raw docs either resolved by a decision note in `docs/decisions/` or tracked as open in `current-focus.md`?
+
 ---
 
 ## Lint Severity

@@ -21,7 +21,7 @@ On a normal task or new session, load in this order and stop as soon as enough t
 ### Mandatory
 1. `project-memory/current-focus.md`
 2. `project-memory/tasks/active.md`
-3. `docs/architecture/system-overview.md`
+3. main curated entry — `docs/architecture/system-overview.md` under `code` archetype, or `docs/topics/README.md` under `docs-kb` archetype
 
 ### Task-directed
 4. relevant files under:
@@ -116,9 +116,26 @@ Prioritize:
 2. recent `log.md`
 3. active tasks
 4. recent lessons
-5. system overview
+5. main curated entry (system overview or topic map, per archetype)
 6. affected docs and code
 7. `docs/agent/lint-and-health.md`
+
+---
+
+### F. Docs-kb routine question (`docs-kb` archetype only)
+Use when answering questions about the knowledge base or working on ingested content.
+
+Prioritize:
+1. `project-memory/current-focus.md`
+2. `project-memory/tasks/active.md`
+3. `docs/topics/README.md`
+4. relevant `docs/concepts/*.md` and `docs/summaries/*.md` near the question
+5. `docs/glossary.md` if term meaning is in play
+6. specific `docs/raw/*.md` files when curated summaries are insufficient
+7. `docs/decisions/*.md` if a conflict or editorial choice is relevant
+8. `project-memory/recent-lessons.md` if editorial pitfalls might apply
+
+Do **not** look for `docs/architecture/` or `docs/modules/` — they do not exist in this archetype.
 
 ---
 
@@ -154,7 +171,7 @@ Use architecture and decisions when:
 
 ## Source-of-Truth Reminder
 
-When conflicts exist, prefer:
+Under `code` archetype, when conflicts exist, prefer:
 
 1. code and tests
 2. runtime/config behavior
@@ -163,6 +180,15 @@ When conflicts exist, prefer:
 5. old project memory
 
 If memory contradicts code, update the memory.
+
+Under `docs-kb` archetype:
+
+1. raw docs under `docs/raw/`
+2. current user instruction
+3. curated docs (topics / concepts / glossary / summaries / decisions)
+4. old project memory
+
+If a curated conclusion contradicts the current raw doc, update the curated conclusion.
 
 ---
 

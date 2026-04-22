@@ -22,10 +22,31 @@ Initialize three layers:
    Existing code, configs, tests, logs, and raw human-authored docs.
 
 2. **Curated Repository Docs**  
-   Structured long-lived docs under `docs/`, such as architecture, decisions, modules, and agent operation docs.
+   Structured long-lived docs under `docs/`. Exact shape depends on archetype (see below).
 
 3. **Dynamic Project Memory**  
    Working memory under `project-memory/` for current focus, logs, tasks, recent lessons, and session history.
+
+---
+
+## Archetype
+
+Before generating scaffolding, determine the **project archetype**. Two values are supported:
+
+- `code` — application / engineering project. Code and tests are primary source of truth. Curated layer = architecture / modules / decisions.
+- `docs-kb` — knowledge base / docs compilation project. Raw docs in `docs/raw/` are primary source of truth. Curated layer = topics / concepts / glossary / summaries.
+
+### How to determine archetype
+
+Do **not** ask the user upfront. Follow the automated rubric:
+
+1. Apply the decision rules in [`docs/agent/archetypes/detection.md`](archetypes/detection.md) — signal scan + first-match wins.
+2. If the rubric returns a clear answer, use it.
+3. Only if the rubric explicitly falls through to "ambiguous", ask the user once.
+
+Then record the chosen archetype in the "Archetype" section of `project-memory/source-roots.md` during step 3 (replacing `auto` with the concrete value), and append one `archetype-detect` entry in `project-memory/log.md` noting which signals were decisive. The rest of this file then branches by archetype where indicated.
+
+If the result is `docs-kb`, also read `docs/agent/archetypes/docs-kb.md` before continuing — it is authoritative for archetype-specific shape.
 
 ---
 
@@ -116,7 +137,11 @@ Rules:
 - do not invent details
 - mark uncertainty explicitly
 
-### 5. Initialize curated architecture docs
+### 5. Initialize curated core docs
+
+Branches by archetype.
+
+#### 5a. `code` archetype
 Create or update:
 
 - `docs/architecture/system-overview.md`
@@ -135,21 +160,46 @@ The first pass should identify:
 Do not try to describe every file.
 Capture the top-level map only.
 
-### 6. Initialize doc scaffolding
-Create or update:
+#### 5b. `docs-kb` archetype
+Do **not** create `docs/architecture/` or `docs/modules/`. Instead create:
 
+- `docs/topics/README.md` — topic map; list the major topics the corpus covers and how they relate
+- `docs/concepts/README.md` — index of key concept cards (cards themselves are created lazily during ingestion)
+- `docs/glossary.md` — term → one-line definition
+- `docs/summaries/README.md` — index of per-raw-doc compressed summaries (individual summaries created during §7 ingestion)
+
+The first pass should identify:
+- what the knowledge base is about
+- major topics / strands
+- obvious key terms
+- unknowns that need confirmation
+
+Keep each page thin. Do not pre-fill concept cards or per-doc summaries — those are produced in §7.
+
+### 6. Initialize doc scaffolding
+
+Both archetypes:
 - `docs/decisions/README.md`
-- `docs/modules/README.md`
 - `docs/agent/index.md`
 - `docs/agent/context-loading.md`
 - `docs/agent/memory-update-policy.md`
 - `docs/agent/lint-and-health.md`
 
+`code` archetype only:
+- `docs/modules/README.md`
+
+`docs-kb` archetype only:
+- `docs/agent/archetypes/docs-kb.md` (ensure present; this repo ships it)
+- reuse of `docs/decisions/README.md` but framed for editorial / structural decisions
+
 Keep these lightweight.
 Do not overfill them on first run.
 
 ### 7. Register and compile existing raw documents
-If raw or legacy project docs exist (in `docs/raw/` or elsewhere):
+
+Under `code` archetype this step is a side workflow (only run when raw/legacy docs exist).
+
+Under `docs-kb` archetype this step is **the main work of initialization** — most of the first-run effort goes here.
 
 #### 7a. Register
 - leave them in place
@@ -157,6 +207,8 @@ If raw or legacy project docs exist (in `docs/raw/` or elsewhere):
 - add them to `source-roots.md` or `source-registry.md` as appropriate
 
 #### 7b. First-pass compilation
+
+##### `code` archetype
 For each registered raw document that contains durable engineering value:
 
 1. read the document
@@ -170,10 +222,24 @@ For each registered raw document that contains durable engineering value:
 4. update `source-registry.md` with status `ingested` and a brief note
 5. append a log entry of type `ingest`
 
-Rules:
+##### `docs-kb` archetype
+For each registered raw document:
+
+1. read the document
+2. write a compressed summary at `docs/summaries/<slug>.md` — what the doc is, key takeaways, what it contradicts or supersedes, pointers to the concepts / topics it feeds. Every ingested raw doc must have a summary, even if short.
+3. extract durable concepts:
+   - add or update `docs/concepts/<concept>.md` cards
+   - add non-obvious terms to `docs/glossary.md`
+   - update `docs/topics/README.md` if a new topic emerged or structure shifted
+4. update `source-registry.md` with status `ingested` (or `skipped` / `partial` / `pending` as appropriate) and a brief note of what was extracted
+5. append a log entry of type `ingest`
+6. if two raw docs conflict, create a decision note in `docs/decisions/` recording which is treated as authoritative
+
+Rules (both archetypes):
 - do not rewrite the raw document itself
-- do not create a curated page per raw document by default — extract knowledge into existing structure
-- if a raw doc has no durable engineering value, mark it `skipped` in the registry
+- under `code`: do not create a curated page per raw document by default — extract knowledge into existing structure
+- under `docs-kb`: do create a summary per ingested raw doc (that is the traceable landing point); concept cards, on the other hand, are created only for durable reusable concepts, not per-doc
+- if a raw doc has no durable value, mark it `skipped` in the registry
 - prefer thin first-pass extraction; depth can be added in later sessions
 - if the number of raw docs is large, prioritize the most relevant ones and mark the rest `pending`
 
@@ -243,11 +309,13 @@ Prefer a small number of high-value files first.
 ## What Good First Run Looks Like
 
 A good first run produces:
-- a clear `source-roots.md`
-- a usable `system-overview.md`
-- a first-pass `module-graph.md`
+- a clear `source-roots.md` (with archetype declared at the top)
+- archetype-appropriate curated entry:
+  - `code`: a usable `system-overview.md` + first-pass `module-graph.md`
+  - `docs-kb`: a usable `docs/topics/README.md` + seeded `docs/glossary.md` + per-raw-doc summaries in `docs/summaries/`
 - a thin `current-focus.md`
 - a minimal task scaffold
+- a `source-registry.md` with every raw doc accounted for (especially under `docs-kb`)
 - a bootstrap log entry
 - no giant wall of prose
 

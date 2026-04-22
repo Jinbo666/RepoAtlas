@@ -10,6 +10,18 @@ Give the agent a **map**, not a manual.
 
 ---
 
+## Archetype
+
+Stored at the top of `project-memory/source-roots.md`.
+
+- `auto` (default) — run detection per `docs/agent/archetypes/detection.md`, write result back, do not ask unless ambiguous
+- `code` — application / engineering project
+- `docs-kb` — knowledge base / docs compilation project (raw docs are primary truth; curated layer = topics / concepts / glossary / summaries)
+
+If resolved to `docs-kb`, also read `docs/agent/archetypes/docs-kb.md` before acting.
+
+---
+
 ## Init Gate
 
 **Initialized** = both exist:
@@ -26,7 +38,7 @@ Read in order, stop when enough context is available:
 
 1. `project-memory/current-focus.md`
 2. `project-memory/tasks/active.md`
-3. `docs/architecture/system-overview.md`
+3. main curated entry — `docs/architecture/system-overview.md` (`code`) or `docs/topics/README.md` (`docs-kb`)
 4. relevant `docs/` and `project-memory/` files
 
 Operational guidance → `docs/agent/index.md`
@@ -35,6 +47,8 @@ Operational guidance → `docs/agent/index.md`
 
 ## Source of Truth
 
+Default (`code` archetype):
+
 1. code and tests
 2. runtime / config behavior
 3. current user instruction
@@ -42,6 +56,8 @@ Operational guidance → `docs/agent/index.md`
 5. old project memory
 
 Memory contradicts code → update the memory.
+
+`docs-kb` archetype: raw docs → user instruction → curated docs → old memory. See `docs/agent/archetypes/docs-kb.md`.
 
 ---
 
